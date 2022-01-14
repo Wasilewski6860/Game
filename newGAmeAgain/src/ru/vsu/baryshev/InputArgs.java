@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import static java.lang.System.out;
+import static java.lang.System.setOut;
 
 public class InputArgs {
 
@@ -44,10 +45,10 @@ public class InputArgs {
         }
         return array;
     }
+
     public static Cell[][] StringArrayToCellArray(String[] array) {
         List<List<String>> BigList = new ArrayList<>();
         int rowCount = 0;
-        int colCount = 0;
 
         for (int i = 0; i < array.length; i++) {
             List<String> helpList = Arrays.asList(array[i].split(" "));
@@ -55,56 +56,150 @@ public class InputArgs {
             rowCount++;
         }
 
-        for (List<String> list : BigList) {
-            for (String str : list) {
-                colCount++;
-            }
-        }
+        int colCount = BigList.get(0).size();
+
         Cell[][] answer = new Cell[rowCount][colCount];
         for (int i = 0; i < BigList.size(); i++) {
+            out.println();
             for (int j = 0; j < BigList.get(0).size(); j++) {
                 if (BigList.get(i).get(j).length() == 1) {
                     String str = BigList.get(i).get(j);
                     switch (str){
                         case "w": {
                             Cell cell = new Cell(Cell.CellStates.WALL, Cell.Color.GRAY);
+                            out.print("w ");
                             answer[i][j] = cell;
+                            break;
                         }
                         case "f": {
                             Cell cell = new Cell(Cell.CellStates.FREE, Cell.Color.WHITE);
                             answer[i][j] = cell;
+                            out.print("f ");
+                            break;
                         }
+
                     }
 
-                }else {
-                    String[] helpArray = BigList.get(i).get(j).split(",");
-                    switch (helpArray[0]){
-                        case "b" :{
-
-                            switch (helpArray[1]){
-                                case "b":{
-                                   Cell cell= new Cell(Cell.CellStates.BALL, Cell.Color.BLUE);
-                                   answer[i][j] = cell;
-                                }
-                                case "g": {
-                                    Cell cell=new Cell(Cell.CellStates.BALL, Cell.Color.BLUE);
-                                    answer[i][j] = cell;
-                                }
-                                case "r": {
-                                    Cell cell=new Cell(Cell.CellStates.BALL, Cell.Color.BLUE);
-                                    answer[i][j] = cell;
-                                }
-                                case "y": {
-                                    Cell cell=new Cell(Cell.CellStates.BALL, Cell.Color.BLUE);
-                                    answer[i][j] = cell;
-                                }
-                            }
+                }else if (BigList.get(i).get(j).length() == 2){
+                    switch (BigList.get(i).get(j)){
+                        case "bb":{
+                            Cell cell = new Cell(Cell.CellStates.BALL, Cell.Color.BLUE);
+                            out.print("bb ");
+                            answer[i][j] = cell;
+                            break;
                         }
+                        case "br":{
+                            Cell cell = new Cell(Cell.CellStates.BALL, Cell.Color.RED);
+                            out.print("bb ");
+                            answer[i][j] = cell;
+                            break;
+                        }
+                        case "bg":{
+                            Cell cell = new Cell(Cell.CellStates.BALL, Cell.Color.GREEN);
+                            out.print("bb ");
+                            answer[i][j] = cell;
+                            break;
+                        }
+                        case "by":{
+                            Cell cell = new Cell(Cell.CellStates.BALL, Cell.Color.YELLOW);
+                            out.print("bb ");
+                            answer[i][j] = cell;
+                            break;
+                        }
+                        case "gb":{
+                            Cell cell = new Cell(Cell.CellStates.GATE, Cell.Color.BLUE);
+                            out.print("bb ");
+                            answer[i][j] = cell;
+                            break;
+                        }
+                        case "gr":{
+                            Cell cell = new Cell(Cell.CellStates.GATE, Cell.Color.RED);
+                            out.print("bb ");
+                            answer[i][j] = cell;
+                            break;
+                        }
+                        case "gg":{
+                            Cell cell = new Cell(Cell.CellStates.GATE, Cell.Color.GREEN);
+                            out.print("bb ");
+                            answer[i][j] = cell;
+                            break;
+                        }
+                        case "gy":{
+                            Cell cell = new Cell(Cell.CellStates.GATE, Cell.Color.YELLOW);
+                            out.print("bb ");
+                            answer[i][j] = cell;
+                            break;
+                        }
+
                     }
+//                    String[] arr = BigList.get(i).get(j).split(",");
+//                    switch (arr[0]){
+//                        case "b" : {
+//                            switch (arr[1]){
+//                                case  "b":{
+//                                    Cell cell = new Cell(Cell.CellStates.BALL, Cell.Color.BLUE);
+//                                    out.print("bb ");
+//                                    answer[i][j] = cell;
+//                                    break;
+//                                }
+//                                case  "y":{
+//                                    Cell cell = new Cell(Cell.CellStates.BALL, Cell.Color.YELLOW);
+//                                    out.print("by");
+//                                    answer[i][j] = cell;
+//                                    break;
+//                                }
+//                                case  "g":{
+//                                    Cell cell = new Cell(Cell.CellStates.BALL, Cell.Color.GREEN);
+//                                    out.print("bg ");
+//                                    answer[i][j] = cell;
+//                                    break;
+//                                }
+//                                case  "r":{
+//                                    Cell cell = new Cell(Cell.CellStates.BALL, Cell.Color.RED);
+//                                    out.print("br ");
+//                                    answer[i][j] = cell;
+//                                    break;
+//                                }
+//                            }
+//                        }
+//                        case "g":{
+//                            switch (arr[1]){
+//                                case  "b":{
+//                                    Cell cell = new Cell(Cell.CellStates.GATE, Cell.Color.BLUE);
+//                                    out.print("gb ");
+//                                    answer[i][j] = cell;
+//                                    break;
+//                                }
+//                                case  "y":{
+//                                    Cell cell = new Cell(Cell.CellStates.GATE, Cell.Color.YELLOW);
+//                                    out.print("gy ");
+//                                    answer[i][j] = cell;
+//                                    break;
+//                                }
+//                                case  "g":{
+//                                    Cell cell = new Cell(Cell.CellStates.GATE, Cell.Color.GREEN);
+//                                    out.print("gg ");
+//                                    answer[i][j] = cell;
+//                                    break;
+//                                }
+//                                case  "r":{
+//                                    Cell cell = new Cell(Cell.CellStates.GATE, Cell.Color.RED);
+//                                    out.print("gr ");
+//                                    answer[i][j] = cell;
+//                                    break;
+//                                }
+//                            }
+//                        }
+//                    }
                 }
 
                 }
             }
+//        for (int i = 0; i < rowCount; i++) {
+//            for (int j = 0; j < colCount; j++) {
+//                out.println((answer[i][j].getState()));
+//            }
+//        }
             return answer;
 
         }

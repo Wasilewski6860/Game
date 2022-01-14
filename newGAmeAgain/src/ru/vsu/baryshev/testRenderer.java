@@ -5,7 +5,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 
-class Renderer extends DefaultTableCellRenderer {
+//class testRenderer extends DefaultTableCellRenderer {
 //    public Component getTableCellRendererComponent(JTable table,
 //                                                   Object value,
 //                                                   boolean isSelected,
@@ -18,16 +18,71 @@ class Renderer extends DefaultTableCellRenderer {
 //        cell.setBackground(Color.RED);
 //        return cell;
 //    }
-static class MyTableCellRenderer extends JLabel implements TableCellRenderer {
+class testRenderer extends DefaultTableCellRenderer {
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
                                                    boolean hasFocus, int rowIndex, int vColIndex) {
-        Cell cell = (Cell) value;
-        switch (cell.toState()) {
-            case WALL: setBackground(Color.RED);
 
+        if (value==null) return this;
+        Cell cell = (Cell) value;
+
+//        System.out.println(cell.getState());
+
+        switch (cell.getState()) {
+            case FREE: {
+                setBackground(Color.WHITE);
+                break;
+            }
+            case BALL: {
+                switch (cell.getColor()) {
+                    case BLUE: {
+                        setBackground(Color.BLUE);
+                        break;
+                    }
+                    case YELLOW: {
+                        setBackground(Color.YELLOW);
+                        break;
+                    }
+                    case GREEN: {
+                        setBackground(Color.GREEN);
+                        break;
+                    }
+                    case RED: {
+                        setBackground(Color.RED);
+                        break;
+                    }
+                }
+            }
+            case WALL: {
+                setBackground(Color.GRAY);
+                break;
+            }
+            case GATE:{
+                switch (cell.getColor()){
+                    case BLUE: {
+                        setBackground(Color.BLUE);
+                        break;
+                    }
+                    case YELLOW: {
+                        setBackground(Color.YELLOW);
+                        break;
+                    }
+                    case GREEN: {
+                        setBackground(Color.GREEN);
+                        break;
+                    }
+                    case RED: {
+                        setBackground(Color.RED);
+                        break;
+                    }
+                }
+            }
+            case GATE_WITH_BALL:{
+                setBackground(Color.LIGHT_GRAY);
+                break;
+            }
         }
+
 
         return this;
     }
-}
 }
